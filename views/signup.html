@@ -1,0 +1,63 @@
+<head>
+</head>
+<body ng-app="myApp" ng-controller="SignUpController">
+	<div class="signup-container">
+			<div class="container col s12 center">
+		    	<div class="section signup-section">
+		    		<h5>Sign Up</h5>
+		    		<form class="col s12 m4 ng-scope">
+					    <div class="row">
+					      <div class="input-field col s12">
+					        <input id="first_name" type="text" class="validate">
+					        <label for="first_name">First Name</label>
+					      </div>
+					    </div>
+					    <div class="row">
+					    	<div class="input-field col s12">
+					        <input id="last_name" type="text" class="validate">
+					        <label for="last_name">Last Name</label>
+					      </div>
+					    </div>
+					    <div class="row">
+					      <div class="input-field col s12">
+					        <input id="email" type="email" class="validate">
+					        <label for="email">Email</label>
+					      </div>
+					    </div>
+					    <div class="row">
+					      <div class="input-field col s12">
+					        <input id="reenteremail" type="email" class="validate">
+					        <label for="reenteremail">Re-enter email</label>
+					      </div>
+					    </div>
+					    <div class="row">
+					      <div class="input-field col s12">
+					        <input id="password" type="password" class="validate">
+					        <label for="password">Password</label>
+					      </div>
+					    </div>
+					    <div class="row">
+					      <div class="input-field col s12">
+					        <input id="reenterpassword" type="password" class="validate">
+					        <label for="reenterpassword">Re-enter Password</label>
+					      </div>
+					    </div>
+					</form>
+					 <div class="row">
+					 	<div class="col s10 offset-s1">
+				 	      	<a href="#" id="signup-button" class="btn-large waves-effect waves-light teal lighten-1">Sign me up!</a>
+				 	    </div>
+				     </div>
+				     <div class="row center text-strikethru">
+						<div class="line"></div>
+						<div class="text">or</div>
+					</div>
+					 <div class="row">
+					 	<div class="col s10 offset-s1">
+				 	      	<a on-click="login()" id="facebooklogin-button" class="btn-large waves-effect waves-light indigo darken-4"><i class="mdi mdi-facebook-box"></i>Log in with facebook</a>
+				 	    </div>
+				     </div>
+		    	</div>	
+		    </div>
+	</div>
+</body>

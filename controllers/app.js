@@ -8,6 +8,10 @@ mainApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'home.html',
             controller: 'HomeController'
         })
+         .when('/signup', {
+            templateUrl: 'signup.html',
+            controller: 'SignUpController'
+        })
         .when('/event', {
             templateUrl: 'eventPage.html',
             controller: 'EventPageController'
@@ -75,8 +79,8 @@ mainApp.controller('HomeController', function($scope, $facebook){
 
 var eventName = ["Elderly", "Renovating a Park", "Cleaning the Beach", "S.O.S. Animals", "Blood Donation", "Blood Diamond"];
 var eventLink = ["event", "eventPage", "eventForm", "#", "#", "#"];
-var eventsimgs = ["omer.jpg","omer.jpg","omer.jpg","omer.jpg","omer.jpg","omer.jpg","omer.jpg"];
-var eventDescription = ["Elderly", "The Strokes Franz Ferdinands","Renovating Omer Park", "Cleaning Itai Beach", "S.O.S. Dor Animals", "Blood Jason Donation"];
+var eventsimgs = ["omer.jpg","africanimpact.jpg","workers.jpg","playground.jpg","cow.jpg","beachClean.jpg","fixingHouses.jpg"];
+var eventDescription = ["Volunteering Omer Elderly", "The Strokes Franz Ferdinands","Renovating Julie Park", "Cleaning Itai Beach", "S.O.S. Dor Animals", "Blood Jason Donation"];
 var arrEvents=[];
 for(var i=0;i<eventName.length;i++)
 {

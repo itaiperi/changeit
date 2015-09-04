@@ -60,3 +60,85 @@ footer.page-footer {
   margin-top: 20px;
   background-color: #72D3C9;
 }
+
+/*
+New style */
+nav{
+  background-color: #4db6ac !important;
+}
+
+.card-image{
+  height: 200px;
+  border-radius: 6px 6px 0 0;
+}
+
+.card .card-image img{
+  height: 100%;
+}
+
+.signup-container{
+  background-color: #eeeeee ;
+  border: 1px solid silver;
+}
+
+.signup-container .signup-section{
+  background-color: white;
+  width: 50%;
+  border:1px solid silver;
+  margin: auto;
+  padding: 2%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  border-radius: 6px 6px 0 0;
+}
+
+.signup-section h5{
+  color:black;
+  }
+
+  .text-strikethru {
+    position: relative;
+    text-align: center;
+}
+
+.text-strikethru .line {
+    height: 1px;
+    background-color: #d9d9de;
+    width: 90%;
+    margin-left: 5%;
+}
+
+.text-strikethru .text {
+    display: inline-block;
+    background-color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    top: -16px;
+    position: relative;
+    color: #828587;
+}
+
+#signup-button, #facebooklogin-button{
+  width:100%;
+}
+
+.createevent-container .createevent-section{
+  background-color: white;
+  width: 70%;
+  border:1px solid silver;
+  margin: auto;
+  padding: 2%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  border-radius: 6px 6px 0 0;
+}
+
+.createevent-section h5{
+  color:black;
+  }
+
+  #uploadImg{
+    width:100%;
+  }
+
+
