@@ -33,7 +33,10 @@ exports.roleSchema = roleSchema = mongoose.Schema({
 	}]
 });
 
+var userSchema = require('./user.js').userSchema;
+
 var Role = mongoose.model('Role', roleSchema);
+var User = mongoose.model('User', userSchema);
 
 exports.addRole = function addRole(newRole, callback) {
 
@@ -69,12 +72,12 @@ exports.removeRole = function removeRole(roleId, callback) {
 }
 
 exports.getRole = function getRole(roleId, callback) {
-	Role.findById(roleId, function(err, user) {
+	Role.findById(roleId).populate('users.user').exec(function(err, role) {
 		if (err) {
 			// TODO handle error
 			return console.error(err);
 		}
-		callback(user);
+		callback(role);
 	});
 }
 

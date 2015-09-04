@@ -42,15 +42,20 @@ exports.eventSchema = eventSchema = mongoose.Schema({
 		required: true,
 		trim: true
 	},
-	roles: {
-		type: [mongoose.Schema.Types.ObjectId],
+	roles: [{
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Role',
 		required: true,
 		trim: true
-	},
+	}],
 });
 
+var userSchema = require('./user.js').userSchema;
+var roleSchema = require('./role.js').roleSchema;
+
 var Event = mongoose.model('Event', eventSchema);
+var User = mongoose.model('User', userSchema);
+var Role = mongoose.model('Role', roleSchema);
 
 exports.addEvent = function addEvent(newEvent, callback) {
 
@@ -89,7 +94,7 @@ exports.removeEvent = function removeEvent(eventId, callback) {
 
 exports.getEvent = function getEvent(eventId, callback) {
 	
-	Event.findById(eventId, function(err, event) {
+	Event.findById(eventId).populate('creatorUser roles').exec(function(err, event) {
 		if (err) {
 			// TODO handle error
 			return console.error(err);

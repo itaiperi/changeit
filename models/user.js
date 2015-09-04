@@ -39,14 +39,17 @@ exports.userSchema = userSchema = mongoose.Schema({
 	bio: {
 		type: String
 	},
-	events: {
-		type: [mongoose.Schema.Types.ObjectId],
+	events: [{
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Event',
 		trim: true
-	}
+	}]
 });
 
+var eventSchema = require('./event.js').eventSchema;
+
 var User = mongoose.model('User', userSchema);
+var Event = mongoose.model('Event', eventSchema);
 
 exports.addUser = function addUser(newUser, callback) {
 
@@ -84,7 +87,7 @@ exports.removeUser = function removeUser(userId, callback) {
 
 exports.getUser = function getUser(userId, callback) {
 	
-	User.findById(userId, function(err, user) {
+	User.findById(userId).populate('events').exec(function(err, user) {
 		if (err) {
 			// TODO handle error
 			return console.error(err);

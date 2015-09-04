@@ -5,7 +5,7 @@ router.get('/', function(req, res) {
 	res.sendFile(appRoot + sep + 'index.html');
 });
 
-router.get('/users/getUser/:id', function(req, res) {
+router.get('/api/users/getUser/:id', function(req, res) {
 	var users = require(appRoot + sep + 'models' + sep + 'user.js');
 	users.getUser(req.params.id, function(user) {
 		if(user) {
@@ -16,7 +16,18 @@ router.get('/users/getUser/:id', function(req, res) {
 	});
 });
 
-router.get('/events/getEvent/:id', function(req, res) {
+router.get('/api/roles/getRole/:id', function(req, res) {
+	var roles = require(appRoot + sep + 'models' + sep + 'role.js');
+	roles.getRole(req.params.id, function(role) {
+		if(role) {
+			res.json(role);
+		} else {
+			res.send(null);
+		}
+	});
+});
+
+router.get('/api/events/getEvent/:id', function(req, res) {
 	var events = require(appRoot + sep + 'models' + sep + 'event.js');
 	events.getEvent(req.params.id, function(event) {
 		if(event) {
@@ -27,7 +38,7 @@ router.get('/events/getEvent/:id', function(req, res) {
 	});
 });
 
-router.get('/events/getAllEvents/', function(req, res) {
+router.get('/api/events/getAllEvents/', function(req, res) {
 	var events = require(appRoot + sep + 'models' + sep + 'event.js');
 	events.getAllEvents(function(events) {
 		if(events) {
@@ -38,7 +49,7 @@ router.get('/events/getAllEvents/', function(req, res) {
 	});
 });
 
-router.get('/events/getFeaturedEvents/', function(req, res) {
+router.get('/api/events/getFeaturedEvents/', function(req, res) {
 	var events = require(appRoot + sep + 'models' + sep + 'event.js');
 	events.getFeaturedEvents(function(events) {
 		if(events) {
@@ -49,7 +60,7 @@ router.get('/events/getFeaturedEvents/', function(req, res) {
 	});
 });
 
-router.get('/initDB', function(req, res) {
+router.get('/api/initDB', function(req, res) {
 	var users = require(appRoot + '/models/user.js');
 	var events = require(appRoot + '/models/event.js');
 	var roles = require(appRoot + '/models/role.js');
