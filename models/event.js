@@ -57,7 +57,7 @@ var Event = mongoose.model('Event', eventSchema);
 var User = mongoose.model('User', userSchema);
 var Role = mongoose.model('Role', roleSchema);
 
-exports.addEvent = function addEvent(newEvent, callback) {
+exports.add = function add(newEvent, callback) {
 
 	// TODO verify event properties
 	// TODO verify user id
@@ -70,7 +70,7 @@ exports.addEvent = function addEvent(newEvent, callback) {
 	}, callback);
 }
 
-exports.updateEvent = function updateEvent(eventId, newInfo, callback) {
+exports.update = function update(eventId, newInfo, callback) {
 
 	// TODO verify newInfo
 	Event.update({_id: mongoose.Types.ObjectId(eventId)}, newInfo, function(err, raw) {
@@ -81,7 +81,7 @@ exports.updateEvent = function updateEvent(eventId, newInfo, callback) {
 	}, callback);
 }
 
-exports.removeEvent = function removeEvent(eventId, callback) {
+exports.remove = function remove(eventId, callback) {
 	
 	// TODO remove event from creatorUser
 	Event.remove({_id: mongoose.Types.ObjectId(eventId)}, function(err) {
@@ -92,7 +92,15 @@ exports.removeEvent = function removeEvent(eventId, callback) {
 	}, callback);
 }
 
-exports.getEvent = function getEvent(eventId, callback) {
+exports.removeAll = function removeAll(callback) {
+	Event.remove({}, function(err) {
+		if (err) {
+			return console.error(err);
+		}
+	});
+}
+
+exports.get = function get(eventId, callback) {
 	
 	Event.findById(eventId).populate('creatorUser roles').exec(function(err, event) {
 		if (err) {
@@ -103,7 +111,7 @@ exports.getEvent = function getEvent(eventId, callback) {
 	});
 }
 
-exports.getAllEvents = function getAllEvents(callback) {
+exports.getAll = function getAll(callback) {
 	
 	Event.find({}).sort('-fromDate').exec(function(err, events) {
 		if (err) {
@@ -113,7 +121,7 @@ exports.getAllEvents = function getAllEvents(callback) {
 	});
 }
 
-exports.getFeaturedEvents = function getFeaturedEvents(callback) {
+exports.getFeatured = function getFeatured(callback) {
 	
 	// TODO write algorithm to find featured
 	var numFeaturedEvents = 6;
@@ -125,7 +133,7 @@ exports.getFeaturedEvents = function getFeaturedEvents(callback) {
 	});
 }
 
-exports.addRole = function(eventId, roleId, callback) {
+exports.addRole = function addRole(eventId, roleId, callback) {
 
 	Event.findByIdAndUpdate(mongoose.Types.ObjectId(eventId), {$push: {'roles': mongoose.Types.ObjectId(roleId)}}, function(err, raw) {
 		if (err) {
@@ -135,7 +143,7 @@ exports.addRole = function(eventId, roleId, callback) {
 	}, callback);
 }
 
-exports.removeRole = function(eventId, roleId, callback) {
+exports.removeRole = function removeRole(eventId, roleId, callback) {
 	
 	Event.findByIdAndUpdate(mongoose.Types.ObjectId(eventId), {$pull: {'events': mongoose.Types.ObjectId(roleId)}}, function(err, raw) {
 		if (err) {

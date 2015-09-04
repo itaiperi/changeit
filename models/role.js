@@ -38,7 +38,7 @@ var userSchema = require('./user.js').userSchema;
 var Role = mongoose.model('Role', roleSchema);
 var User = mongoose.model('User', userSchema);
 
-exports.addRole = function addRole(newRole, callback) {
+exports.add = function add(newRole, callback) {
 
 	// TODO verify role properties
 	Role.create(newRole, function(err, role) {
@@ -49,7 +49,7 @@ exports.addRole = function addRole(newRole, callback) {
 	}, callback);
 }
 
-exports.updateRole = function updateRole(roleId, newInfo, callback) {
+exports.update = function update(roleId, newInfo, callback) {
 	
 	// TODO verify newInfo
 	Role.update({_id: mongoose.Types.ObjectId(roleId)}, newInfo, function(err, raw) {
@@ -60,7 +60,7 @@ exports.updateRole = function updateRole(roleId, newInfo, callback) {
 	}, callback);
 }
 
-exports.removeRole = function removeRole(roleId, callback) {
+exports.remove = function remove(roleId, callback) {
 	
 	// TODO remove events connected to user
 	Role.remove({_id: mongoose.Types.ObjectId(roleId)}, function(err) {
@@ -71,7 +71,15 @@ exports.removeRole = function removeRole(roleId, callback) {
 	}, callback);
 }
 
-exports.getRole = function getRole(roleId, callback) {
+exports.removeAll = function removeAll(callback) {
+	Role.remove({}, function(err) {
+		if (err) {
+			return console.error(err);
+		}
+	});
+}
+
+exports.get = function get(roleId, callback) {
 	Role.findById(roleId).populate('users.user').exec(function(err, role) {
 		if (err) {
 			// TODO handle error
@@ -81,7 +89,7 @@ exports.getRole = function getRole(roleId, callback) {
 	});
 }
 
-exports.addUser = function(roleId, userId, callback) {
+exports.addUser = function addUser(roleId, userId, callback) {
 
 	// TODO add role to user
 	Role.findByIdAndUpdate(mongoose.Types.ObjectId(roleId), {$push: {'users': mongoose.Types.ObjectId(userId)}}, function(err, raw) {
@@ -92,7 +100,7 @@ exports.addUser = function(roleId, userId, callback) {
 	}, callback);
 }
 
-exports.removeUser = function(roleId, userId, callback) {
+exports.removeUser = function removeUser(roleId, userId, callback) {
 	
 	// TODO remove role from user
 	Role.findByIdAndUpdate(mongoose.Types.ObjectId(roleId), {$pull: {'users': mongoose.Types.ObjectId(userId)}}, function(err, raw) {

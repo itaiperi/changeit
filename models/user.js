@@ -51,7 +51,7 @@ var eventSchema = require('./event.js').eventSchema;
 var User = mongoose.model('User', userSchema);
 var Event = mongoose.model('Event', eventSchema);
 
-exports.addUser = function addUser(newUser, callback) {
+exports.add = function add(newUser, callback) {
 
 	// TODO verify user properties
 	newUser.creationDate = Date.now();
@@ -63,7 +63,7 @@ exports.addUser = function addUser(newUser, callback) {
 	}, callback);
 }
 
-exports.updateUser = function updateUser(userId, newInfo, callback) {
+exports.update = function update(userId, newInfo, callback) {
 	
 	// TODO verify newInfo
 	User.update({_id: mongoose.Types.ObjectId(userId)}, newInfo, function(err, raw) {
@@ -74,7 +74,7 @@ exports.updateUser = function updateUser(userId, newInfo, callback) {
 	}, callback);
 }
 
-exports.removeUser = function removeUser(userId, callback) {
+exports.remove = function remove(userId, callback) {
 	
 	// TODO remove events connected to user
 	User.remove({_id: mongoose.Types.ObjectId(userId)}, function(err) {
@@ -85,7 +85,15 @@ exports.removeUser = function removeUser(userId, callback) {
 	}, callback);
 }
 
-exports.getUser = function getUser(userId, callback) {
+exports.removeAll = function removeAll(callback) {
+	User.remove({}, function(err) {
+		if (err) {
+			return console.error(err);
+		}
+	});
+}
+
+exports.get = function get(userId, callback) {
 	
 	User.findById(userId).populate('events').exec(function(err, user) {
 		if (err) {

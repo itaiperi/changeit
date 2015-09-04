@@ -7,7 +7,7 @@ router.get('/', function(req, res) {
 
 router.get('/api/users/getUser/:id', function(req, res) {
 	var users = require(appRoot + sep + 'models' + sep + 'user.js');
-	users.getUser(req.params.id, function(user) {
+	users.get(req.params.id, function(user) {
 		if(user) {
 			res.json(user);
 		} else {
@@ -18,7 +18,7 @@ router.get('/api/users/getUser/:id', function(req, res) {
 
 router.get('/api/roles/getRole/:id', function(req, res) {
 	var roles = require(appRoot + sep + 'models' + sep + 'role.js');
-	roles.getRole(req.params.id, function(role) {
+	roles.get(req.params.id, function(role) {
 		if(role) {
 			res.json(role);
 		} else {
@@ -29,7 +29,7 @@ router.get('/api/roles/getRole/:id', function(req, res) {
 
 router.get('/api/events/getEvent/:id', function(req, res) {
 	var events = require(appRoot + sep + 'models' + sep + 'event.js');
-	events.getEvent(req.params.id, function(event) {
+	events.get(req.params.id, function(event) {
 		if(event) {
 			res.json(event);
 		} else {
@@ -40,7 +40,7 @@ router.get('/api/events/getEvent/:id', function(req, res) {
 
 router.get('/api/events/getAllEvents/', function(req, res) {
 	var events = require(appRoot + sep + 'models' + sep + 'event.js');
-	events.getAllEvents(function(events) {
+	events.getAll(function(events) {
 		if(events) {
 			res.json(events);
 		} else {
@@ -51,7 +51,7 @@ router.get('/api/events/getAllEvents/', function(req, res) {
 
 router.get('/api/events/getFeaturedEvents/', function(req, res) {
 	var events = require(appRoot + sep + 'models' + sep + 'event.js');
-	events.getFeaturedEvents(function(events) {
+	events.getFeatured(function(events) {
 		if(events) {
 			res.json(events);
 		} else {
@@ -64,6 +64,11 @@ router.get('/api/initDB', function(req, res) {
 	var users = require(appRoot + '/models/user.js');
 	var events = require(appRoot + '/models/event.js');
 	var roles = require(appRoot + '/models/role.js');
+	
+	users.removeAll();
+	roles.removeAll();
+	events.removeAll();
+
 	for (var i = 0; i < 10; ++i) {
 		var user = {
 			_id: '00000000000000000000000'.concat(i),
@@ -77,7 +82,7 @@ router.get('/api/initDB', function(req, res) {
 			bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra nec erat in gravida. Vestibulum sit amet sem nec massa lacinia tristique vel in lacus. Nulla euismod ultrices nulla ac bibendum. Cras quis volutpat velit, ac aliquet purus. Pellentesque molestie felis at lacus tempor tincidunt. Morbi lobortis, arcu non viverra iaculis, purus elit mattis risus, et congue odio erat at mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent eget suscipit massa. Suspendisse potenti. Pellentesque a accumsan turpis, non cursus lacus.',
 			events: ['000000000000000000000'.concat(100+i)]
 		}
-		users.addUser(user);
+		users.add(user);
 	}
 
 	for (var i = 0; i < 20; ++i) {
@@ -93,7 +98,7 @@ router.get('/api/initDB', function(req, res) {
 			}]
 			
 		}
-		roles.addRole(role);
+		roles.add(role);
 	}
 
 	for (var i = 0; i < 10; ++i) {
@@ -106,16 +111,16 @@ router.get('/api/initDB', function(req, res) {
 			toDate: Date.now(),
 			address: 'Test address ' + i,
 			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra nec erat in gravida. Vestibulum sit amet sem nec massa lacinia tristique vel in lacus. Nulla euismod ultrices nulla ac bibendum. Cras quis volutpat velit, ac aliquet purus. Pellentesque molestie felis at lacus tempor tincidunt. Morbi lobortis, arcu non viverra iaculis, purus elit mattis risus, et congue odio erat at mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent eget suscipit massa. Suspendisse potenti. Pellentesque a accumsan turpis, non cursus lacus.',
-			image: 'testimage.jpg',
+			image: 'testimage' + i + '.jpg',
 			roles: [
 				'000000000000000000000'.concat(200+i*2),
 				'000000000000000000000'.concat(200+i*2+1)
 			]
 		}
-		events.addEvent(event);
+		events.add(event);
 	}
 
-	res.send('test');
+	res.send('Database initialized!');
 });
 
 module.exports = router;
