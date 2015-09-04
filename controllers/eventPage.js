@@ -1,4 +1,4 @@
-mainApp.controller('EventPageController', function($scope) {
+mainApp.controller('EventPageController', ['$scope','$routeParams','$http', function($scope, $routeParams, $http) {
   console.log("Hello world i am here!!");
 
 var roleName = ["Painter", "Driver", "Singer", "Engineer", "Dancer", "Chef"];
@@ -17,6 +17,23 @@ for(var i=0;i<roleName.length;i++)
 }
 $scope.rolesData = arrRoles;
 
+$http.get("api/events/getEvent/" + $routeParams.id)
+.success(function(response){
+
+    $scope.name = response.name;
+    $scope.address = response.address;
+    $scope.fromDate = (new Date(response.fromDate)).toLocaleDateString();
+    $scope.toDate = (new Date(response.toDate)).toLocaleDateString();
+    $scope.image = response.image;
+    $scope.description = response.description;
+    $scope.bio = response.creatorUser.bio;
+    $scope.organizerFName = response.creatorUser.firstName;
+    $scope.organizerLName = response.creatorUser.lastName;
+    $scope.organizeremail = response.creatorUser.email;
+    
+
+});
+
 Morris.Donut({
         element: 'donut-example',
         // fill: #009688,
@@ -27,4 +44,4 @@ Morris.Donut({
         ]
       });
 
-});
+}]);

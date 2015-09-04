@@ -12,7 +12,7 @@ mainApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'signup.html',
             controller: 'SignUpController'
         })
-        .when('/event', {
+        .when('/event/:id', {
             templateUrl: 'eventPage.html',
             controller: 'EventPageController'
         })
@@ -52,7 +52,7 @@ mainApp.run(function($rootScope){
 console.log("#3");
 
 
-mainApp.controller('HomeController', function($scope, $facebook){
+mainApp.controller('HomeController', function($scope, $facebook, $http){
     $scope.isLoggedIn = false;
     $scope.yolo = 'yolo';
     console.log($scope.yolo);
@@ -76,32 +76,25 @@ mainApp.controller('HomeController', function($scope, $facebook){
     });
   }
 
+$http.get("api/events/getFeaturedEvents/")
+.success(function(response){
+    var arrEvents=[];
+    for(var i=0;i<response.length;i++)
+    {
+      var name = response[i].name;
+      var id = response[i]._id;
+      var description = response[i].description;
+      var img = response[i].image;
+      arrEvents.push({
+          name:name,
+          id:id,
+          description:description,
+          image:img
+      });
+    }
+    $scope.eventsData = arrEvents;
 
-var eventName = ["Elderly", "Renovating a Park", "Cleaning the Beach", "S.O.S. Animals", "Blood Donation", "Blood Diamond"];
-var eventLink = ["event", "eventPage", "eventForm", "#", "#", "#"];
-var eventsimgs = ["omer.jpg","africanimpact.jpg","workers.jpg","playground.jpg","cow.jpg","beachClean.jpg","fixingHouses.jpg"];
-var eventDescription = ["Volunteering Omer Elderly", "The Strokes Franz Ferdinands","Renovating Julie Park", "Cleaning Itai Beach", "S.O.S. Dor Animals", "Blood Jason Donation"];
-var arrEvents=[];
-for(var i=0;i<eventName.length;i++)
-{
-  var name = eventName[i];
-  var link = eventLink[i];
-  var description = eventDescription[i];
-  var img = eventsimgs[i];
-  arrEvents.push({
-      name:name,
-      link:link,
-      description:description,
-      image:img
-  });
-}
-
-
-$scope.eventsData = arrEvents;
-console.log("######");
-console.log(arrEvents.length);
-console.log(arrEvents);
-  
+});
 
   function refresh(){
       $facebook.api("/me" , { fields: 'last_name,first_name,email,name' }).then(function(response){

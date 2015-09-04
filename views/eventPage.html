@@ -14,23 +14,45 @@
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
-        <h1 class="header center teal-text text-lighten-2">Change.it</h1>
+        <h1 class="header center teal-text text-lighten-2">{{name}}</h1>
         <div class="row center">
-          <h5 class="header col s12 light">A modern event planning platform aimed at reaching the underserved.</h5>
+        <!--   <h5 class="header col s12 light">A modern event planning platform aimed at reaching the underserved.</h5> -->
+        <!-- <p class="col s4"><i class="material-icons prefix">location_on</i><h5>{{event.address}}</h5></p>
+        <p class="col s4"><i class="material-icons prefix">today</i><h5>{{event.fromDate}}</h5></p>
+        <p class="col s4"><i class="material-icons prefix">today</i><h5>{{event.toDate}}</h5></p> -->
+        <div class="row">
+            <div class="input-field col s4">
+              <i class="material-icons prefix">location_on</i>
+              <label class="teal-text text-lighten-5">{{address}}</label>
+            </div>
+            <div class="input-field col s4">
+              <i class="material-icons prefix">today</i>
+              <label class="teal-text text-lighten-5">{{fromDate}}</label>
+            </div>
+            <div class="input-field col s4">
+              <i class="material-icons prefix">today</i>
+              <label class="teal-text text-lighten-5">{{toDate}}</label>
+            </div>
+            <!-- <div class="input-field col s3">
+              <i class="material-icons prefix">av_timer</i>
+              <label>250 hours</label>
+            </div> -->
+        </div>
         </div>
         <div class="row center">
          <!-- Modal Trigger -->
- 		 <a class="modal-trigger waves-effect waves-light btn" href="#modal-Sign-Event">Pledge Resources to Event</a>
-		<div class="row center">
-          <a class="btn btn-large waves-effect waves-light shareButton"><i class="material-icons">add</i></a>
-          <p><span class="socialShare">jul</span></p>
-        </div>
+   		    <a class="modal-trigger waves-effect waves-light btn" href="#modal-Sign-Event">Pledge Resources to Event</a>
+  		    <div class="row center">
+              <!-- <a class="btn btn-large waves-effect waves-light shareButton"><i class="material-icons">add</i></a>
+              <p><span class="socialShare"></span></p>
+               -->
+               <!-- <img src="socialshares.jpg" style="width:120px;hieght:30px;"> -->
+          </div>
         </div>
         <br><br>
-
       </div>
     </div>
-    <div class="parallax"><img src="peopleWorks.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="{{image}}" alt="Unsplashed background img 1"></div>
 </div>
 
 <div class="container">
@@ -42,8 +64,7 @@
           <div class="icon-block">
             <h2 class="center brown-text"><i class="material-icons">description</i></h2>
             <h5 class="center">Event Description</h5>
-
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+            <p class="light">{{description}}</p>
           </div>
         </div>
 
@@ -51,8 +72,10 @@
           <div class="icon-block">
             <h2 class="center brown-text"><i class="material-icons">supervisor_account</i></h2>
             <h5 class="center">Organizer</h5>
-
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+            <p class="light">{{organizerFName}} {{organizerLName}}</p>
+            <p class="light">{{organizeremail}}</p>
+            <p class="light">{{bio}}</p>
+              <!-- <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p> -->
           </div>
         </div>
 
